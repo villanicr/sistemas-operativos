@@ -32,22 +32,25 @@ int main(int argc, char** argv)
     if(!strcmp(argv[3],"a"))
     {
  	sv_sem orillaA("orillaA", 0);    
-    	if(carga->estaViajando() == true || carga->getOrilla() == 'b'){
+	if(carga->estaViajando() == false and carga->getOrilla() == 'a'){
+		if(carga->getColchonSeg()>=load){
+			carga->setCarga(load);
+			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: a"<<endl;
+			cout<<"carga ferry2:  "<<carga->getCarga()<<endl;
+		}
+	}    	
+	if(carga->estaViajando() == true || carga->getOrilla() == 'b'){
 		cout<<"aca "<<carga->estaViajando()<<":viajando  "<<"orilla  "<<carga->getOrilla()<<endl;		
+		carga->unoEnEsperaA();		
 		orillaA.wait();
+		carga->nadieEnEsperaA();
 		if(carga->getColchonSeg()>=load){
 			carga->setCarga(load);
 			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: a"<<endl;
 			cout<<"carga ferry1:  "<<carga->getCarga()<<endl;
 		}
 	}
-    	if(carga->estaViajando() == false and carga->getOrilla() == 'a'){
-		if(carga->getColchonSeg()>=load){
-			carga->setCarga(load);
-			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: a"<<endl;
-			cout<<"carga ferry2:  "<<carga->getCarga()<<endl;
-		}
-	}
+    	
 	if(carga->getColchonSeg() <= carga->getCarga()){
 		cout<<"El ferry listo para zarpar desde la orilla A:  "<<"carga interna: "<<carga->getCarga()<<" se dirijira a la orilla B"<<endl;
 		orillaA.post();
@@ -57,19 +60,23 @@ int main(int argc, char** argv)
     if(!strcmp(argv[3],"b"))
     {
  	sv_sem orillaB("orillaB", 0);    
-    	if(carga->estaViajando() == true || carga->getOrilla() == 'a'){
+	if(carga->estaViajando() == false and carga->getOrilla() == 'b'){
+		if(carga->getColchonSeg()>=load){
+			carga->setCarga(load);
+			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: b"<<endl;
+		}
+	}    	
+	if(carga->estaViajando() == true || carga->getOrilla() == 'a'){
+		carga->unoEnEsperaB();
 		orillaB.wait();
+		carga->nadieEnEsperaB();
 		if(carga->getColchonSeg()>=load){
 			carga->setCarga(load);
 			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: b"<<endl;
+			cout<<"carga del ferry:   "<<carga->getCarga()<<endl;
 		}
 	}
-    	if(carga->estaViajando() == false and carga->getOrilla() == 'b'){
-		if(carga->getColchonSeg()>=load){
-			carga->setCarga(load);
-			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: b"<<endl;
-		}
-	}
+    	
 	if(carga->getColchonSeg() <= carga->getCarga()){
 		cout<<"El ferry listo para zarpar desde la orilla B:  "<<"carga interna: "<<carga->getCarga()<<" se dirijira a la orilla A"<<endl;
 		orillaB.post();
