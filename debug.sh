@@ -1,3 +1,3 @@
-ipcs -si | tail -4
-ipcs -si0 | tail -4
-ipcs -si98305 | tail -4
+ipcs -si851970 | tail -4
+ipcs -si884739 | tail -4
+ipcs -si1277956 | tail -4

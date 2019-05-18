@@ -8,14 +8,14 @@ class Carga{
 	char orilla;
 	bool viajando;
 	int colchonSeg;
-	bool esperaA;
-	bool esperaB;
+	int esperaA;
+	int esperaB;
 	public:
 		Carga() {
 			strcpy (dato,"");
 			ultimo=false;
-			esperaA=false;
-			esperaB=false;
+			esperaA=0;
+			esperaB=0;
 			}
 		Carga(std::string d) {
 			strcpy (dato,d.c_str());
@@ -31,13 +31,13 @@ class Carga{
 		  ultimo=false;
 		}
 		
-		void unoEnEsperaA(){esperaA=true;};
-		void unoEnEsperaB(){esperaB=true;};
-		bool verEsperaA(){return esperaA;};
-		bool verEsperaB(){return esperaB;};
-		void nadieEnEsperaA(){esperaA=false;};	
-		void nadieEnEsperaB(){esperaB=false;};		
-	
+		void filaAddA(){esperaA=esperaA+1;};
+		void filaAddB(){esperaB=esperaB+1;};
+		int tamFilaA(){return esperaA;};
+		int tamFilaB(){return esperaB;};
+		void filaRestarA(){esperaA=esperaA-1;};		
+		void filaRestarB(){esperaB=esperaB-1;};		
+
 		void setColchonSeg(int cs){colchonSeg=cs;}
 		int getColchonSeg(){return colchonSeg;};		
 		void setUltimo(){ultimo=true;};

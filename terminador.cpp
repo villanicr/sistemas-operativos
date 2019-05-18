@@ -12,10 +12,12 @@ int main() {
     
     sv_sem orillaA("orillaa", 0);
     sv_sem orillaB("orillab", 0);
+    sv_sem ferry("ferry",0);
     sv_shm compartida("cargamento");
     
     orillaA.del();
     orillaB.del();
+    ferry.del();
     compartida.del();
 //falta eliminar la carga
 

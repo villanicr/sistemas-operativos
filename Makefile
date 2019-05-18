@@ -1,6 +1,6 @@
 CXXFLAGS= -std=c++11
 
-todos= main vehiculo terminador
+todos= Ferry vehiculo terminador
 
 all: $(todos)
 
