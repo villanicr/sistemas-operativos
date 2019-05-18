@@ -1,0 +1,23 @@
+Cómo ejecutar el programa:
+
+1) Compilar con el comando
+
+    make all
+
+2) Ejecutar en una terminal el programa principal con el comando
+
+    ./main
+
+Mantener esta ventana abierta ya que se encargara de mostrar el progreso del programa.
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+Nota: 
+Si el programa queda en un estado inválido, se puede correr el siguiente comando que liberara todos los semaforos:
+
+    ./terminador
