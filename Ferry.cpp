@@ -26,6 +26,7 @@ int main()
 
     do {
 	ferry.wait();
+	if(carga->esFin()) break;
 	cout<<"El ferry zarpo desde orilla A hacia la B  con una carga de :"<<carga->getCarga()<<endl;
 	carga->vaciarCarga();
 	cout<<"carga vaciada  "<<carga->getCarga()<<endl;
@@ -35,7 +36,7 @@ int main()
 	}
 	
 	ferry.wait();
-
+	if(carga->esFin()) break;
 	cout<<"llego a la orilla B esperando para cargarse"<<endl;
 	cout<<"El ferry zarpo desde orilla B hacia la A  con una carga de :"<<carga->getCarga()<<endl;
 	carga->vaciarCarga();

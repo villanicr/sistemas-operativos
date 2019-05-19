@@ -10,12 +10,14 @@ class Carga{
 	int colchonSeg;
 	int esperaA;
 	int esperaB;
+	bool end;
 	public:
 		Carga() {
 			strcpy (dato,"");
 			ultimo=false;
 			esperaA=0;
 			esperaB=0;
+			end=false;
 			}
 		Carga(std::string d) {
 			strcpy (dato,d.c_str());
@@ -51,6 +53,9 @@ class Carga{
 			load=0;
 		}
 		
+		bool esFin(){return end;};
+		void fin(){end=true;};
+
 		int getCarga(){
 			return load;
 		};
