@@ -15,8 +15,7 @@ int main(int argc, char** argv)
 
     carga=reinterpret_cast<Carga *> (compartida.map(BUFSIZ));	
     
-    
-    
+    char rta;
     if(argc <= 1) {
     	cout<< "parametros faltantes ingrese nombre vehiculo,carga y orilla de partida.\n";
 	//exit(0);
@@ -44,11 +43,17 @@ int main(int argc, char** argv)
 		carga->filaAddA();		
 		orillaA.wait();
 		carga->filaRestarA();
-		if(carga->tamFilaA() > 0 and carga->getColchonSeg()>=carga->getCarga()+load){
+		cout<<"t<m fila A "<<carga->tamFilaA()<<endl;
+		carga->setCarga(load);		
+		if(carga->tamFilaA() > 0 and carga->getColchonSeg()>=carga->getCarga()){
 			orillaA.post();
 		}
+
+		cout<<"ingrese char para cargar el q esperaba"<<endl;
+		cin>>rta; 
+
 		if(carga->getColchonSeg()>=carga->getCarga()+load){
-			carga->setCarga(load);
+		//	carga->setCarga(load);
 			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: a"<<endl;
 			cout<<"carga ferry1:  "<<carga->getCarga()<<endl;
 		}
@@ -74,12 +79,19 @@ int main(int argc, char** argv)
 		carga->filaAddB();		
 		orillaB.wait();
 		carga->filaRestarB();
-		if(carga->tamFilaB() > 0 and carga->getColchonSeg()>=carga->getCarga()+load){
+		cout<<"t<m fila B "<<carga->tamFilaB()<<endl;
+		cout<<"ingrese char para cargar el q esperaba"<<endl;
+		cin>>rta; 
+		carga->setCarga(load);
+		if(carga->tamFilaB() > 0 and carga->getColchonSeg()>carga->getCarga()){
+			cout<<"entro al post  "<<"con carga interma"<<carga->getCarga()<<endl;			
 			orillaB.post();
 		}
-		
+		cout<<"t<m fila B "<<carga->tamFilaB()<<endl;
+		cout<<"ingrese char para cargar el q esperaba"<<endl;
+		cin>>rta; 
 		if(carga->getColchonSeg()>= carga->getCarga()+load){
-			carga->setCarga(load);
+			//carga->setCarga(load);
 			cout<<"El vehiculo:  "<<argv[1]<<" cargo: "<<load<<" unidades en la orilla: b"<<endl;
 			cout<<"carga del ferry:   "<<carga->getCarga()<<endl;
 		}
