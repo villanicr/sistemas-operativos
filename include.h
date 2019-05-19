@@ -40,6 +40,7 @@ void exec(const char* cmd) {
 }
 
 void debug(char* message) {
+
     char sz[1000] = "echo ";
     strcat(sz, message);
     system(sz);
