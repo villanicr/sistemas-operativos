@@ -13,6 +13,10 @@ int main(int argc, char const *argv[]) {
     // Libero la bodega.
     ptero_ferry->liberar_bodega();
 
+    // Hago un post en las orillas para liberar posibles vehiculos bloqueados.
+    sv_sem("/Norte").post();
+    sv_sem("/Sur").post();
+
     // Hago un post para liberar al ferry.
     sv_sem("/Ferry").post();
 

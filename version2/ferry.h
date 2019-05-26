@@ -64,21 +64,32 @@ bool Ferry::agregar_vehiculo(Vehiculo vehiculo)
     cout << vehiculo.get_nombre() << " espera para entrar al ferry en la orilla " << vehiculo.get_origen() << "..." << endl;
     semaforo.wait();
 
-    // El vehiculo entró al ferry, asi que lo agrego a la bodega.
-    cout << vehiculo.get_nombre() << " entró al ferry." << endl;
-    bodega[cantidad_de_vehiculos] = vehiculo.get_nombre();
-    cantidad_de_vehiculos++;
-    carga_actual += vehiculo.get_peso();
+    if(!finalizar) {
 
-    if (carga_actual >= carga_minima)
-    {
-        // El ferry puede zarpar -> se despierta al ferry.
-        sv_sem("/Ferry").post();
-    }
-    else
-    {
-        // Dejo que entre otro vehiculo.
-        cout << "La carga actual del ferry es " << carga_actual << ". Zarpará cuando iguale o supere " << carga_minima << "." << endl;
+        // El vehiculo entró al ferry, asi que lo agrego a la bodega.
+        cout << vehiculo.get_nombre() << " entró al ferry." << endl;
+        bodega[cantidad_de_vehiculos] = vehiculo.get_nombre();
+        cantidad_de_vehiculos++;
+        carga_actual += vehiculo.get_peso();
+
+        if (carga_actual >= carga_minima)
+        {
+            // El ferry puede zarpar -> se despierta al ferry.
+            sv_sem("/Ferry").post();
+        }
+        else
+        {
+            // Dejo que entre otro vehiculo.
+            cout << "La carga actual del ferry es " << carga_actual << ". Zarpará cuando iguale o supere " << carga_minima << "." << endl;
+            semaforo.post();
+        }
+
+        // Bloqueo el proceso hasta que cruce el rio.
+        sv_sem (vehiculo.get_nombre(), 0).wait();
+    
+    } else {
+        // Si finalizó la simulación hago otro post para que se 
+        // desbloquee un posible vehiculo bloqueado
         semaforo.post();
     }
 }

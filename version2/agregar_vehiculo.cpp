@@ -37,12 +37,9 @@ int main(int argc, char const *argv[]) {
     Vehiculo vehiculo(argv[1], atoi(argv[2]), argv[3]);
     ptero_ferry->agregar_vehiculo(vehiculo);
 
-    // Bloqueo el proceso hasta que cruce el rio.
-    sv_sem semaforo(vehiculo.get_nombre(), 0);
-    semaforo.wait();
-
     // Elimino el semaforo luego de cruzar.
     cout << "Se liberó el vehiculo " << vehiculo.get_nombre() << endl;
-    semaforo.del();
+    sv_sem (vehiculo.get_nombre()).del();
+
     return 0;
 }
