@@ -5,6 +5,16 @@
 
 using namespace std;
 int main(int argc, char const *argv[]) {
+
+    printf("*******************************************************\n");
+    printf("* TP 2 : Semaforos - Tema 4 (Ferry) \n");
+    printf("*******************************************************\n");
+    printf("* Integrantes:\n");
+    printf("   Sebastian Blazquez        99673\n");
+    printf("   Villani Cristian          93358\n");
+    printf("   Buré Julien               104778 \n");
+    printf("   Jhon anthony Valer Torres 93066 \n");
+    printf("*******************************************************\n");    
     // Valido la cantidad de argumentos
     if (argc != 4) {
         cout << "No se recibieron los parámetros del vehículo necesarios." << endl;
